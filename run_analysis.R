@@ -24,6 +24,10 @@ y_train <- read.table("UCI HAR Dataset/train/y_train.txt")
                 #Rename variables
                 names(X_test) <- features[,2]
                 names(X_train) <- features[,2]
+                #Filter variables
+                pattern <- grepl(pattern= "-mean\\()|-std\\()", names(X_test)) # TRUE FALSE vector for selecting columns;X_test and X_train has identical varibles names
+                X_train <- X_train[,pattern]
+                X_test <- X_test[,pattern]
         #y_test & y_traine
                 #Decoding of variables
                 y_test <- merge(y_test, activity_labels, by="V1", sort=FALSE) %>% 
@@ -31,8 +35,8 @@ y_train <- read.table("UCI HAR Dataset/train/y_train.txt")
                 y_train <- merge(y_train, activity_labels, by="V1", sort=FALSE)%>% 
                         select(V2)
                 #Rename variables
-                names(y_test) <- "test_activ"
-                names(y_train) <- "train_activ"
+                names(y_test) <- "activity"
+                names(y_train) <- "activity"
         #subject_test & subject_train
                 #Rename varibles
                 names(subject_train) <- "subject"
@@ -43,5 +47,6 @@ y_train <- read.table("UCI HAR Dataset/train/y_train.txt")
                 # Addin group column
                 test_bind$Group <- "test"
                 train_bind$Group <- "train"
+        data <- rbind(test_bind, train_bind)
                 
                 
