@@ -54,5 +54,6 @@ library(tidyr)
         x <- data[,c(1,2,69, 35:45)] #for experiment
         data <- data %>%
                 gather(key=measure, value = value, -c(activity, subject, Group))%>% 
-                separate(measure, c("measure","function", "dimension"), sep="-", remove=FALSE)
+                separate(measure, c("measure","function", "dimension"), sep="-", remove=FALSE)%>% 
+                separate(measure, c("Domaine_signals","measure"), sep=1, remove=FALSE)
                 
