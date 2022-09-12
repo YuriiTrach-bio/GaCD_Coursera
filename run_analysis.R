@@ -1,4 +1,3 @@
-library(dplyr)
 
 ## Downloading the data ====
 #  url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
@@ -30,6 +29,7 @@ y_train <- read.table("UCI HAR Dataset/train/y_train.txt")
                 X_test <- X_test[,pattern]
         #y_test & y_traine
                 #Decoding of variables
+library(dplyr)
                 y_test <- merge(y_test, activity_labels, by="V1", sort=FALSE) %>% 
                         select(V2)
                 y_train <- merge(y_train, activity_labels, by="V1", sort=FALSE)%>% 
@@ -48,5 +48,11 @@ y_train <- read.table("UCI HAR Dataset/train/y_train.txt")
                 test_bind$Group <- "test"
                 train_bind$Group <- "train"
         data <- rbind(test_bind, train_bind)
-                
+## Data tidying ====
+library(tidyr)
+        data <- tbl_df(data)
+        x <- data[,c(1,2,69, 35:45)] #for experiment
+        data <- data %>%
+                gather(key=measure, value = value, -c(activity, subject, Group))%>% 
+                separate(measure, c("measure","function", "dimension"), sep="-", remove=FALSE)
                 
