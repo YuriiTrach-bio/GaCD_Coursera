@@ -51,9 +51,50 @@ library(dplyr)
 ## Data tidying ====
 library(tidyr)
         data <- tbl_df(data)
-        x <- data[,c(1,2,69, 35:45)] #for experiment
         data <- data %>%
                 gather(key=measure, value = value, -c(activity, subject, Group))%>% 
                 separate(measure, c("measure","function", "dimension"), sep="-", remove=FALSE)%>% 
                 separate(measure, c("Domaine_signals","measure"), sep=1, remove=FALSE)
+        
+        # decoding some variables
+        data$Domaine_signals[grep("t", data$Domaine_signals)] <- "time"
+        data$Domaine_signals[grep("f", data$Domaine_signals)] <- "frequency"
+        
+        
+                
+                
+ 
+                               
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
