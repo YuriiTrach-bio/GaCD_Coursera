@@ -54,13 +54,26 @@ library(tidyr)
         data <- data %>%
                 gather(key=measure, value = value, -c(activity, subject, Group))%>% 
                 separate(measure, c("measure","function", "dimension"), sep="-", remove=FALSE)%>% 
-                separate(measure, c("Domaine_signals","measure"), sep=1, remove=FALSE)
+                separate(measure, c("domaine_signals","measure"), sep=1, remove=FALSE)
+        
+        data$acceleration_type[grep("Body", data$measure)] <- "Body"
+        data$acceleration_type[grep("Gravity", data$measure)] <- "gravity"
+        
+        data$signal_type[grep("Acc", data$measure)] <- "accelerometer"
+        data$signal_type[grep("Gyro", data$measure)] <- "gyroscope"
+        
+        data$jerk_signal[grep("Jerk", data$measure)] <- TRUE
+        data$jerk_signal[is.na(data$jerk_signal)] <- FALSE
+        
+        data$magnitude_signal[grep("Mag", data$measure)] <- TRUE
+        data$magnitude_signal[is.na(data$magnitude_signal)] <- FALSE
         
         # decoding some variables
-        data$Domaine_signals[grep("t", data$Domaine_signals)] <- "time"
-        data$Domaine_signals[grep("f", data$Domaine_signals)] <- "frequency"
+        data$domaine_signals[grep("t", data$domaine_signals)] <- "time"
+        data$domaine_signals[grep("f", data$domaine_signals)] <- "frequency"
         
-        
+        data$`function`[grep("mean()", data$`function`)] <- "Mean"
+        data$`function`[grep("std()", data$`function`)] <- "Standard deviation"
                 
                 
  
