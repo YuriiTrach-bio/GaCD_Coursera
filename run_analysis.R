@@ -59,8 +59,8 @@ library(tidyr)
         data$acceleration_type[grep("Body", data$measure)] <- "Body"
         data$acceleration_type[grep("Gravity", data$measure)] <- "gravity"
         
-        data$signal_type[grep("Gyro", data$measure)] <- "gyroscope"
-        data$signal_type[grep("Acc", data$measure)] <- "accelerometer"
+        data$sensor_signal[grep("Gyro", data$measure)] <- "gyroscope"
+        data$sensor_signal[grep("Acc", data$measure)] <- "accelerometer"
         
         data$jerk_signal[grep("Jerk", data$measure)] <- TRUE
         data$jerk_signal[is.na(data$jerk_signal)] <- FALSE
@@ -77,7 +77,8 @@ library(tidyr)
         
         #deleting unnecessary columns
         data <- data %>% select(-measure)
-                
+
+## avarage 
  
                                
                 
