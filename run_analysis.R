@@ -50,6 +50,7 @@ library(dplyr)
         data <- rbind(test_bind, train_bind)
 ## Data tidying ====
 library(tidyr)
+        #creating new variables (just separating values of measure column)
         data <- tbl_df(data)
         data <- data %>%
                 gather(key=measure, value = value, -c(activity, subject, Group))%>% 
@@ -77,9 +78,11 @@ library(tidyr)
         
         #deleting unnecessary columns
         data <- data %>% select(-measure)
-
-## avarage 
- 
+        
+##Summarizing the data set ====
+ data_summarized <- data %>% 
+                group_by(activity, subject, variable) %>% 
+                summarise(average=mean(value)); View(data_summarized)
                                
                 
                 
