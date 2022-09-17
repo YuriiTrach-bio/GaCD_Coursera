@@ -1,9 +1,11 @@
 
 ## Downloading the data ====
+
 #  url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 
 #  download.file(url = url, destfile =paste(getwd(), "/data.zip", sep="")) # download the archive
 #  unzip("data.zip") # extract a folder from the archive
+
 
 ## Reading data ====
 
@@ -45,15 +47,15 @@ library(dplyr)
         test_bind <- cbind(y_test, subject_test, X_test)
         train_bind <- cbind(y_train, subject_train, X_train)
                 # Addin group column
-                test_bind$Group <- "test"
-                train_bind$Group <- "train"
+                test_bind$group <- "test"
+                train_bind$group <- "train"
         data <- rbind(test_bind, train_bind)
 ## Data tidying ====
 library(tidyr)
         #creating new variables (just separating values of measure column)
         data <- tbl_df(data)
         data <- data %>%
-                gather(key=measure, value = value, -c(activity, subject, Group))%>% 
+                gather(key=measure, value = value, -c(activity, subject, group))%>% 
                 separate(measure, c("measure","variable", "dimension"), sep="-", remove=FALSE)%>% 
                 separate(measure, c("domaine_signals","measure"), sep=1, remove=FALSE)
         
@@ -83,37 +85,4 @@ library(tidyr)
  data_summarized <- data %>% 
                 group_by(activity, subject, variable) %>% 
                 summarise(average=mean(value)); View(data_summarized)
-                               
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+                        
