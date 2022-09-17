@@ -1,5 +1,5 @@
 # GaCD_Coursera
-Getting and Cleaninng Data course project. Peer-graded assignment.
+Getting and Cleaning Data course project. Peer-graded assignment.
 
 From the task:
 
